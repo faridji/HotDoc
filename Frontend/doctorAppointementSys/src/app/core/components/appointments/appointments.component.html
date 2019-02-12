@@ -1,0 +1,94 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<div class="container">
+  <div class="row">
+    <!-- Patient Info -->
+    <div class="col-sm-4">
+      <div class="card" style="width: 15rem;">
+        <img src="/assets/images/{{user.picture}}" style="max-height: 30vh;" />
+        <div class="card-body" *ngIf="user">
+          <h5 class="card-title">{{ user.name }}</h5>
+          <p class="card-text">{{ user.age }} Years</p>
+          <p class="card-text">{{ user.mob_number }}</p>
+          <p class="card-text">{{ user.email }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appoitment Detail Form -->
+    <div class="col-sm-6">
+      <form #f="ngForm" (ngSubmit)="appointDoctor(f.value)">
+        <div class="form-group">
+          <label for="department">Department</label>
+          <select
+            required
+            ngModel
+            #name="ngModel"
+            name="department"
+            class="form-control"
+            (click)="populateDoctors()"
+          >
+            <option value=""></option>
+            <option *ngFor="let dept of departments" [value]="dept.name">
+              {{ dept.name }}
+            </option>
+          </select>
+          <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+            Department name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="doctor">Doctor</label>
+          <select
+            required
+            ngModel
+            #doctor="ngModel"
+            name="doctor"
+            class="form-control"
+          >
+            <option value=""></option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.name">
+              {{ doctor.name }}
+            </option>
+          </select>
+          <div
+            class="alert alert-danger"
+            *ngIf="doctor.touched && doctor.invalid"
+          >
+            Doctor name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Appointments Date</label>
+          <div class="input-group">
+            <input
+              required
+              class="form-control"
+              startDate="{ year: 2018; month: 8; day: 25;}"
+              #dp="ngModel"
+              name="dp"
+              [(ngModel)]="model"
+              ngbDatepicker
+              [minDate]="{ year: year, month: month, day: day }"
+              #d="ngbDatepicker"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                (click)="d.toggle()"
+                type="button"
+              >
+                <i class="fa fa-calendar"></i>
+              </button>
+            </div>
+          </div>
+          <div class="alert alert-danger" *ngIf="dp.touched && dp.invalid">
+            Date is required
+          </div>
+        </div>
+        <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

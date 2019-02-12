@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">HotDoc</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isCollapse = !isCollapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse" id="navbarsExampleDefault" [class.collapse]="isCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="doctors">Doctor</a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="departments">Departments</a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="appointment">Appointments</a>
+        </li>
+
+        <ng-template #patient>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/patientDetails">My Detail</a>
+          </li>
+        </ng-template>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/about" *ngIf="!user; else patient">About</a>
+        </li>
+      </ul>
+
+      <ng-template #anynomousUser>
+        <ul class="nav navbar-nav navbar-right">
+          <li ngbDropdown class="nav-item dropdown">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              User
+            </a>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" routerLink="/login-options">Login</a>
+              <a class="dropdown-item" routerLink="sign-up">Sign Up</a>
+            </div>
+          </li>
+        </ul>
+      </ng-template>
+
+      <ul class="nav navbar-nav navbar-right" *ngIf="user; else anynomousUser">
+        <li ngbDropdown class="nav-item dropdown">
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{user.name}}
+          </a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

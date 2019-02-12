@@ -1,0 +1,105 @@
+<!-- Show Toast Notification -->
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<h4>Patient Sign Up</h4>
+<form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="signUp()">
+  <div class="form-group">
+    <label for="name">Full Name</label>
+    <input formControlName="name" type="text" class="form-control" />
+    <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+      <div *ngIf="name.errors.required">Name is required.</div>
+      <div *ngIf="name.errors.minlength">
+        Name should be at least
+        {{ name.errors.minlength.requiredLength }} characters.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      formControlName="email"
+      type="email"
+      class="form-control"
+      [class.loading]="email.pending"
+    />
+    <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+      <div *ngIf="email.errors.required">email is required.</div>
+      <div *ngIf="email.errors.email">Invalid email.</div>
+      <div *ngIf="email.errors.emailExists">email already exists.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input formControlName="password" type="password" class="form-control" />
+    <div
+      class="alert alert-danger"
+      *ngIf="password.touched && password.invalid"
+    >
+      <div *ngIf="password.errors.required">password is required.</div>
+      <div *ngIf="password.errors.minlength">
+        password should be atleast
+        {{ password.errors.minlength.requiredLength }} character.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="contact">Mob number</label>
+    <input
+      formControlName="mob_number"
+      type="text"
+      class="form-control"
+      [class.loading]="mob_number.pending"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf="mob_number.touched && mob_number.invalid"
+    >
+      <div *ngIf="mob_number.errors.isValidPhone">
+        Please enter a valid number in format 03xx1234567.
+      </div>
+      <div *ngIf="mob_number.errors.mobileExists">
+        mobile number already exists.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="age">Age</label>
+    <input formControlName="age" type="number" class="form-control" min="1" />
+    <div class="alert alert-danger" *ngIf="age.touched && age.invalid">
+      Age is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label> <br />
+    <textarea
+      formControlName="address"
+      id="address"
+      cols="30"
+      rows="5"
+    ></textarea>
+    <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+      Address is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Upload Pic</label>
+    <input
+      formControlName="picture"
+      id="photo"
+      type="file"
+      class="form-control"
+    />
+    <div class="alert alert-danger" *ngIf="picture.touched && picture.invalid">
+      Picture is required.
+    </div>
+  </div>
+  <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+</form>
+
+<br />
+<br />

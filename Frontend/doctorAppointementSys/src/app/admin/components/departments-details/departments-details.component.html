@@ -1,0 +1,89 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<div *ngIf="loading" style="padding: 40px;">
+  <img style="float:inherit" src="/assets/loading.gif" />
+</div>
+
+<div
+  class="container"
+  style="width: 100% !important; margin-top: 30px;"
+  *ngIf="departments && departments.length > 0"
+>
+  <p>
+    <input
+      type="text"
+      class="form-control"
+      #query
+      (keyup)="filter(query.value)"
+      placeholder="Search..."
+    />
+  </p>
+  <div class="row" *ngIf="!addNewDept">
+    <div class="col-sm-6"><h3>Departments</h3></div>
+
+    <div class="col-sm-6" *ngIf="selected">
+      <button class="btn btn-danger" (click)="openDialog(content)">
+        Delete
+      </button>
+      <button class="btn btn-primary" (click)="addDept()">
+        Add new department
+      </button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!addNewDept">
+    <div class="col-sm-12">
+      <table class="table" style="width: 100%; margin-top: 10px;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            *ngFor="let dept of filteredDepartments; let i = index"
+            (click)="getSingle(dept, i)"
+            style="cursor: pointer;"
+            [class.selected]="dept.selected"
+          >
+            <td><img src="assets/images/{{dept.picture}}" class="avatar" /></td>
+            <td>{{ dept.name }}</td>
+            <td>{{ dept.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf="departments && departments.length == 0" style="margin-top: 30px;">
+  <div class="alert alert-danger">There is no department yet</div>
+  <dept-sign-up></dept-sign-up>
+</div>
+
+<div *ngIf="addNewDept"><dept-sign-up></dept-sign-up></div>
+
+<!-- Template for deleting record Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm Delete</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p>Are your sure to delete the Department record?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" (click)="delete()">Yes</button>
+    <button class="btn" (click)="c('Save click')">Cancel</button>
+  </div>
+</ng-template>

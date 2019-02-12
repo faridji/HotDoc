@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+  <div class="container">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link">Records</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" *ngIf="user">
+        <li ngbDropdown class="nav-item dropdown">
+          <a
+            ngbDropdownToggle
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ user.name }}
+          </a>
+          <div
+            ngbDropdownMenu
+            class="dropdown-menu"
+            aria-labelledby="dropdown01"
+          >
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<ngb-tabset type="pills">
+  <ngb-tab title="Doctors">
+    <ng-template ngbTabContent> <doctor-details></doctor-details> </ng-template>
+  </ngb-tab>
+
+  <ngb-tab title="Patients">
+    <ng-template ngbTabContent>
+      <patient-details></patient-details>
+    </ng-template>
+  </ngb-tab>
+
+  <ngb-tab title="Departments">
+    <ng-template ngbTabContent> <depart-details></depart-details> </ng-template>
+  </ngb-tab>
+</ngb-tabset>

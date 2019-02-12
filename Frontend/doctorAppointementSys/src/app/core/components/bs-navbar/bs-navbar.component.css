@@ -1,0 +1,9 @@
+.dropdown-toggle {
+  cursor: pointer;
+}
+.dropdown-menu {
+  cursor: pointer;
+}
+.active {
+  border-bottom: 2px solid #000;
+}

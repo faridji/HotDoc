@@ -1,0 +1,114 @@
+<ng2-toasty [position]="'top-right'">
+</ng2-toasty>
+<h4>Doctor signUp Form</h4>
+
+<form [formGroup]="form" (ngSubmit)="doctorSignUp()">
+  <div class="form-group">
+    <label for="name">Full Name</label>
+    <input formControlName="name" type="text" class="form-control">
+    <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+      <div *ngIf="name.errors.required">Name is required.</div>
+      <div *ngIf="name.errors.minlength">Name should be at least {{ name.errors.minlength.requiredLength }} characters.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input formControlName="email" type="email" class="form-control" [class.loading]="email.pending">
+    <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+      <div *ngIf="email.errors.required">email is required.</div>
+      <div *ngIf="email.errors.email">invalid email.</div>
+      <div *ngIf="email.errors.emailExists">email already exists.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input formControlName="password" type="password" class="form-control">
+    <div class="alert alert-danger" *ngIf="password.touched && password.invalid">
+      <div *ngIf="password.errors.required">password is required.</div>
+      <div *ngIf="password.errors.minlength">password should be atleast {{password.errors.minlength.requiredLength }} character.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="contact">Mob number</label>
+    <input formControlName="mob_number" type="text" class="form-control" [class.loading]="mob_number.pending">
+    <div class="alert alert-danger" *ngIf="mob_number.touched && mob_number.invalid">
+      <div *ngIf="mob_number.errors.isValidPhone">Please enter a valid number in format 03xx1234567.</div>
+      <div *ngIf="mob_number.errors.mobileExists">Mobile number already exists.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="age">Age</label>
+    <input formControlName="age" type="number" class="form-control" min="1">
+    <div class="alert alert-danger" *ngIf="age.touched && age.invalid">
+      Age is required.
+    </div>
+  </div>
+
+  <label for="eduction">Education</label>
+  <br/>
+  <div class="form-group">
+    <select multiple formControlName="education" id="education">
+      <option value="MBBS">MBBS</option>
+      <option value="FCPS">FCPS</option>
+      <option value="MRCP">MRCP</option>
+      <option value="CCT">CCT(Diabetes and Endocrionolgy)</option>
+      <option value="FACE">FACE</option>
+    </select>
+  </div>
+  <div class="alert alert-danger" *ngIf="education.touched && education.invalid">
+    education is required.
+  </div>
+
+  <div class="form-group">
+    <label for="department">Department</label>
+    <select formControlName="department" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let dept of departments" [value]="dept.name">{{ dept.name }}</option>
+    </select>
+  </div>
+  <div class="alert alert-danger" *ngIf="department.touched && department.invalid">
+    department is required.
+  </div>
+
+  <label for="doctor">Experience</label>
+  <br/>
+  <div class="form-group">
+    <select formControlName="experience" id="experience">
+      <option value=""></option>
+      <option value="1">1 year</option>
+      <option value="2">2 year</option>
+      <option value="3">3 year</option>
+      <option value="4">4 year</option>
+      <option value="5">5+ years</option>
+    </select>
+  </div>
+  <div class="alert alert-danger" *ngIf="experience.touched && experience.invalid">
+    experience is required.
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <br>
+    <textarea formControlName="address" id="address" cols="30" rows="5"></textarea>
+    <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+      Address is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Upload Pic</label>
+    <input formControlName="picture" id="photo" type="file" class="form-control">
+    <div class="alert alert-danger" *ngIf="picture.touched && picture.invalid">
+      Picture is required.
+    </div>
+  </div>
+
+  <button class="btn btn-primary" [disabled]="form.invalid">Add new Doctor</button>
+</form>
+
+<br>
+<br>

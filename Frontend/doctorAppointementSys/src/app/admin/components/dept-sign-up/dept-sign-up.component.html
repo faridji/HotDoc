@@ -1,0 +1,21 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<h4>Dept Form</h4>
+<form #f="ngForm" (ngSubmit)="createDept(f.value)" style="margin-top: 20px;">
+  <div class="form-group">
+    <label for="name">Department Name</label>
+    <input ngModel name="name" type="text" id="name" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="deptDesc">Description</label>
+    <br/>
+    <textarea ngModel name="description" id="deptDesc" cols="30" rows="10"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="deptDesc">Picture</label>
+    <br/>
+    <input ngModel name="picture" type="file" id="photo">
+  </div>
+
+  <button class="btn btn-primary">Submit</button>
+</form>

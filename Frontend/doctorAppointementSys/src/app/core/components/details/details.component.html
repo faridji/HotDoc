@@ -1,0 +1,58 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<div class="container">
+  <hr />
+  <h2>Patient History</h2>
+  <hr />
+  <div class="row">
+    <!-- Patient Info -->
+    <div class="col-sm-4">
+      <div class="card" style="width: 15rem;">
+        <img src="/assets/images/{{user.picture}}" style="max-height: 30vh;" />
+        <div class="card-body" *ngIf="user">
+          <h5 class="card-title">{{ user.name }}</h5>
+          <p class="card-text">{{ user.age }} Years</p>
+          <p class="card-text">{{ user.mob_number }}</p>
+          <p class="card-text">{{ user.email }}</p>
+          <a
+            class="btn btn-primary"
+            *ngIf="patient && !patient.appointments"
+            (click)="makeAppointment()"
+            >Make appointment</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment History -->
+    <div class="col-sm-8">
+      <div *ngIf="loading" style="width:70px; margin:0 auto;">
+        <img src="/assets/loading.gif" />
+      </div>
+      <div *ngIf="patient && patient.appointments">
+        <table class="table">
+          <thead>
+            <tr>
+              <td>#</td>
+              <th>Doctor Appointed</th>
+              <th>Doctor Departpment</th>
+              <th>Date of Appointment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of patient.appointments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ appointment.doctor }}</td>
+              <td>{{ appointment.department }}</td>
+              <td>{{ appointment.Date | date: "shortDate" }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--
+          <h4>Medicine Report</h4>
+          <p>{{ patient.medicines }}</p>
+        -->
+      </div>
+    </div>
+  </div>
+</div>

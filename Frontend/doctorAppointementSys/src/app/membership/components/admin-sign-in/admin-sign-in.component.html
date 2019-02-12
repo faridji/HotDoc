@@ -1,0 +1,48 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<div class="container">
+  <form class="form-signin" #f="ngForm" (ngSubmit)="signIn(f.value)">
+    <h2 class="form-signin-heading">Please sign in</h2>
+
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input
+      type="email"
+      #email="ngModel"
+      name="email"
+      ngModel
+      id="inputEmail"
+      class="form-control"
+      placeholder="Email address"
+      required
+      autofocus
+    />
+    <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+      Email is required.
+    </div>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input
+      type="password"
+      #password="ngModel"
+      name="password"
+      ngModel
+      id="inputPassword"
+      class="form-control"
+      placeholder="Password"
+      required
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf="password.touched && password.invalid"
+    >
+      Password is required.
+    </div>
+
+    <div class="mb-3">
+      <a id="forgetPassword" (click)="navigateToPage()">Forgot password?</a>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Sign in
+    </button>
+  </form>
+</div>

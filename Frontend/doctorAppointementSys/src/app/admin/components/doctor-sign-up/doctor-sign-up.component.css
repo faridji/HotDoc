@@ -1,0 +1,7 @@
+.loading
+{
+   background:
+     url('/assets/loading.gif')
+     no-repeat
+     right center;
+}

@@ -1,0 +1,57 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<section id="team" class="pb-5">
+  <div class="container">
+    <h5 class="section-title h1">Doctors</h5>
+    <div *ngIf="loading" style="width:50px; margin:0 auto;">
+      <img src="/assets/loading.gif" />
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let doctor of doctors">
+        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+          <div class="mainflip">
+            <div class="frontside">
+              <div class="card">
+                <div class="card-body text-center">
+                  <p>
+                    <img
+                      class="img-fluid"
+                      src="/assets/images/{{doctor.picture}}"
+                      alt="card image"
+                    />
+                  </p>
+                  <h4 class="card-title">{{ doctor.name }}</h4>
+
+                  <a href="#" class="btn btn-primary btn-sm">
+                    <i class="fa fa-plus"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="backside">
+              <div class="card">
+                <div class="card-body text-center mt-4">
+                  <h4 class="card-title">{{ doctor.name }}</h4>
+                  <span
+                    class="card-text"
+                    *ngFor="let education of doctor.education"
+                  >
+                    {{ education }}
+                  </span>
+                  <br />
+                  <br />
+                  <button
+                    type="button"
+                    class="btn btn-primary navbar-btn"
+                    (click)="showDetails(doctor)"
+                  >
+                    Detail
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

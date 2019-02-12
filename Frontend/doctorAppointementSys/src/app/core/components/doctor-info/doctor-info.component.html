@@ -1,0 +1,88 @@
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+<h1 class="text-center"><strong>DOCTOR</strong></h1>
+<hr />
+<div class="container-fluid" *ngIf="doctor">
+  <div class="row">
+    <div class="col-sm-3" style="background-color:rgba(138, 145, 170, 0.082);">
+      <h3>
+        <b>{{ doctor.name }}</b>
+      </h3>
+      <img
+        src="./assets/images/{{doctor.picture}}"
+        alt="Pediatric"
+        class="avatar"
+      />
+      <br />
+      <br />
+      <button type="button" class="btn btn-primary" (click)="makeAppointment()">
+        Make An Appointment
+      </button>
+    </div>
+
+    <div class="col-sm-9" style="background-color:rgba(97, 105, 85, 0.158);">
+      <div class="col-sm-2 pb-xs-30">
+        <img
+          src="./assets/education.png"
+          alt="VALUES"
+          style="width:50%;"
+          class="full-left"
+        />
+      </div>
+      <h3>Education</h3>
+      <p *ngFor="let education of doctor.education">{{ education }}</p>
+      <br />
+      <hr />
+      <div class="col-sm-2 pb-xs-30">
+        <img
+          src="./assets/download.jpg"
+          alt="VALUES"
+          style="width:50%;"
+          class="full-left"
+        />
+      </div>
+      <h3>Experience</h3>
+      <p>{{ doctor.experience }} Year Experience</p>
+      <br />
+      <hr />
+      <div class="col-sm-2 pb-xs-30">
+        <img
+          src="./assets/good job.jpg"
+          alt="VALUES"
+          style="width:50%;"
+          class="full-left"
+        />
+      </div>
+      <h3>AWARDS, RECOGNITION & PUBLICATIONS</h3>
+      <p>
+        24 publications in per renewed journals Renewer for JCPSP,JPMA,Endocrine
+        Practice,Journal of Diabetes & Endocrinology Received Donald Etzwiler
+        award from International Diabetes & Endocrinology Past President
+        Pakistan Endocrine Society Vice President South Asian Federation
+        Endocrine Society Master trainer for CGMS Technology
+      </p>
+      <br />
+      <hr />
+      <div class="col-sm-2 pb-xs-30">
+        <img
+          src="./assets/images.png"
+          alt="VALUES"
+          style="width:50%;"
+          class="full-left"
+        />
+      </div>
+      <h3>Email</h3>
+      <p>{{ doctor.email }}</p>
+      <br />
+      <hr />
+      <div class="col-sm-2 pb-xs-30">
+        <img
+          src="./assets/images.jpg"
+          alt="VALUES"
+          style="width:50%;"
+          class="full-left"
+        />
+      </div>
+      <p>{{ doctor.mob_number }}</p>
+    </div>
+  </div>
+</div>

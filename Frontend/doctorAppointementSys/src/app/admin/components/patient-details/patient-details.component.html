@@ -1,0 +1,94 @@
+<!--Show Toast notifications on top of the page -->
+<ng2-toasty [position]="'top-right'"></ng2-toasty>
+
+<!--Show loading image is data is not loaded -->
+<div *ngIf="loading" style="padding: 50px;">
+    <img src='/assets/loading.gif' />
+</div>
+
+<!--Show Patients Records -->
+<div class="container" style="width: 100% !important; margin-top: 30px;" *ngIf="patients && patients.length > 0 && !showDescriptionPane">
+    <p>
+        <input type="text" class="form-control" #query (keyup)="filter(query.value)" placeholder="Search...">
+    </p>
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+
+        <div class="col-sm-6" *ngIf="selected">
+            <button class="btn btn-danger" (click)="openDialog(content)">Delete</button>
+            <button class="btn btn-primary" *ngIf="showDescriptionBtn" (click)="addDescription($event)">Add Description</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;" *ngIf="!showDescriptionPane">
+
+        <table class="table" style="width: 100%; margin-top: 10px;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Contact No</th>
+                    <th>Address</th>
+                    <th>Doctor Appointed</th>
+                    <th>Date of Appointment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let patient of filteredPatients; let i = index" (click)="getSingle(patient, i)" style="cursor: pointer;" [class.selected]="patient.selected">
+                    <td>
+                        <img class="avatar" src="/assets/images/{{patient.picture}}">
+                    </td>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.email }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.mob_number }}</td>
+                    <td>{{ patient.address }}</td>
+                    <td>{{ patient.doctor }}</td>
+                    <td>{{ patient.Date | date:'mediumDate' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Patient signup form if there is not patient in database -->
+<div *ngIf="patients && patients.length == 0" style="margin-top: 30px;">
+    <div class="alert alert-danger">There is no patient yet</div>
+    <app-signup></app-signup>
+</div>
+
+<!-- Description Pane for adding medicine for a patient by the admin -->
+<div *ngIf="showDescriptionPane" style="margin-top: 30px;">
+    <h4>Add Medicines</h4>
+    <form #f="ngForm" (ngSubmit)="addMedicine(f.value)">
+        <div class="form-group">
+            <textarea required #medicines="ngModel" ngModel name="medicines" id="medicines" cols="30" rows="10">
+            </textarea>
+        </div>
+        <div class="alert alert-danger" *ngIf="medicines.touched && medicines.invalid">
+            Medicines are required.
+        </div>
+        <button class="btn btn-primary" style="float: left;" [disabled]="f.invalid">Submit</button>
+    </form>
+</div>
+
+<!-- Template for deleting record Modal -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirm Delete</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <p>Are your sure to delete the Patient record?</p>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="delete()">Yes</button>
+        <button class="btn" (click)="c('Save click')">Cancel</button>
+    </div>
+</ng-template>
